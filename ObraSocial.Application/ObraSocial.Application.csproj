@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Thiesen.Domain\ObraSocial.Domain.csproj" />
-    <ProjectReference Include="..\Thiesen.Infra.Data\ObraSocial.Infra.Data.csproj" />
+    <ProjectReference Include="..\ObraSocial.Domain\ObraSocial.Domain.csproj" />
+    <ProjectReference Include="..\ObraSocial.Infra.Data\ObraSocial.Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>

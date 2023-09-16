@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Thiesen.Application\ObraSocial.Application.csproj" />
-    <ProjectReference Include="..\Thiesen.Domain\ObraSocial.Domain.csproj" />
+    <ProjectReference Include="..\ObraSocial.Application\ObraSocial.Application.csproj" />
+    <ProjectReference Include="..\ObraSocial.Domain\ObraSocial.Domain.csproj" />
   </ItemGroup>
 
 </Project>

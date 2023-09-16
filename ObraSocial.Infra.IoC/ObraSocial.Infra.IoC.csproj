@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Thiesen.Application\ObraSocial.Application.csproj" />
+    <ProjectReference Include="..\ObraSocial.Application\ObraSocial.Application.csproj" />
   </ItemGroup>
 
 </Project>

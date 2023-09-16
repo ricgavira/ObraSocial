@@ -22,9 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Thiesen.Application\ObraSocial.Application.csproj" />
-    <ProjectReference Include="..\Thiesen.Infra.Data\ObraSocial.Infra.Data.csproj" />
-    <ProjectReference Include="..\Thiesen.Infra.IoC\ObraSocial.Infra.IoC.csproj" />
+    <ProjectReference Include="..\ObraSocial.Application\ObraSocial.Application.csproj" />
+    <ProjectReference Include="..\ObraSocial.Infra.Data\ObraSocial.Infra.Data.csproj" />
+    <ProjectReference Include="..\ObraSocial.Infra.IoC\ObraSocial.Infra.IoC.csproj" />
   </ItemGroup>
 
 </Project>
