@@ -14,7 +14,7 @@ namespace ObraSocial.Infra.Data.Repositories
             _appDbContext = appDbContext;
         }
 
-        public async Task<PessoaFisica> AddAsync(PessoaFisica pessoaFisica)
+        public async Task<PessoaFisica> CreateAsync(PessoaFisica pessoaFisica)
         {
             await _appDbContext.PessoasFisicas.AddAsync(pessoaFisica);
             return pessoaFisica;

@@ -1,4 +1,4 @@
-﻿using ObraSocial.Application.Dtos.Builders;
+﻿using ObraSocial.Application.Dtos.Cadastro.Builders;
 using ObraSocial.Domain.Entities;
 using ObraSocial.Domain.Enums;
 

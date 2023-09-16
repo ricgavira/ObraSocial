@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using ObraSocial.Application.Dtos;
+using ObraSocial.Application.Dtos.Cadastro;
 
 namespace ObraSocial.Application.Queries.GetPessoaFisicaById
 {

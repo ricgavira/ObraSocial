@@ -1,12 +1,7 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using ObraSocial.Application.Commands.CreatePessoaFisica;
-using ObraSocial.Application.Commands.DeletePessoaFisica;
-using ObraSocial.Application.Commands.UpdatePessoaFisica;
-using ObraSocial.Application.Queries.GetAllPessoasFisicas;
-using ObraSocial.Application.Queries.GetPessoaFisicaById;
+﻿using Microsoft.AspNetCore.Mvc;
+using ObraSocial.Application.Dtos.Cadastro;
 using ObraSocial.Application.Resources;
+using ObraSocial.Application.Service.Cadastro.Interface;
 
 namespace ObraSocial.API.Controllers
 {
@@ -15,59 +10,56 @@ namespace ObraSocial.API.Controllers
     //[Authorize]
     public class PessoaFisicaController : ControllerBase
     {
-        private readonly IMediator _mediator;
-
-        public PessoaFisicaController(IMediator mediator)
+        private readonly IPessoaFisicaService _pessoaFisicaService;
+        public PessoaFisicaController(IPessoaFisicaService pessoaFisicaService)
         {
-            _mediator = mediator;
+            _pessoaFisicaService = pessoaFisicaService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] CreatePessoaFisicaCommand command)
+        public async Task<IActionResult> CreateAsync([FromBody] PessoaFisicaDto pessoaFisicaDto)
         {
-            if (command == null)
-                throw new ArgumentNullException($"{ValidationMessages.InvalidParameter} - {nameof(command)}");
+            if (pessoaFisicaDto == null)
+                throw new ArgumentNullException($"{ValidationMessages.InvalidParameter} - {nameof(pessoaFisicaDto)}");
 
-            var id = await _mediator.Send(command);
+            var retorno = await _pessoaFisicaService.CreateAsync(pessoaFisicaDto);
 
-            if (id == -1)
+            if (retorno == null)
                 return BadRequest(ValidationMessages.ExistPessoaFisica);
 
-            return Ok(id);            
+            return Ok(retorno);
         }
 
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var deleteCommand = new DeletePessoaFisicaCommand(id);
-            await _mediator.Send(deleteCommand);
+            await _pessoaFisicaService.DeleteAsync(id);
+
             return NoContent();
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
-            var query = new GetAllPessoasFisicasQuery();
-            var pessoasFisicasDto = await _mediator.Send(query);
+            var pessoasFisicasDto = await _pessoaFisicaService.GetAllAsync();
             return Ok(pessoasFisicasDto);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(int id)
         {
-            var query = new GetPessoaFisicaByIdQuery(id);
-            var pessoaFisicaDto = await _mediator.Send(query);
+            var pessoaFisicaDto = await _pessoaFisicaService.GetByIdAsync(id);
 
             if (pessoaFisicaDto == null)
-                return NotFound();
+                return NotFound(ValidationMessages.NotFoundPessoaFisica);
 
             return Ok(pessoaFisicaDto);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync([FromBody] UpdatePessoaFisicaCommand command)
+        public async Task<IActionResult> UpdateAsync([FromBody] PessoaFisicaDto pessoaFisicaDto)
         {
-            await _mediator.Send(command);
+            await _pessoaFisicaService.UpdateAsync(pessoaFisicaDto);
 
             return NoContent();
         }

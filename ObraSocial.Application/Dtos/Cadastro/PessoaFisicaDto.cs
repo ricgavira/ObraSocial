@@ -1,6 +1,6 @@
 ﻿using ObraSocial.Domain.Enums;
 
-namespace ObraSocial.Application.Dtos
+namespace ObraSocial.Application.Dtos.Cadastro
 {
     public class PessoaFisicaDto
     {

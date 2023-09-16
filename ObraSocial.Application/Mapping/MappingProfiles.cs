@@ -3,7 +3,7 @@ using ObraSocial.Application.Commands.CreatePessoaFisica;
 using ObraSocial.Application.Commands.CreateUsuario;
 using ObraSocial.Application.Commands.UpdatePessoaFisica;
 using ObraSocial.Application.Commands.UpdateUsuario;
-using ObraSocial.Application.Dtos;
+using ObraSocial.Application.Dtos.Cadastro;
 using ObraSocial.Domain.Entities;
 
 namespace ObraSocial.Application.Mapping

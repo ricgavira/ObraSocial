@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using ObraSocial.Application.Dtos;
+using ObraSocial.Application.Dtos.Cadastro;
 using ObraSocial.Domain.Repositories;
 
 namespace ObraSocial.Application.Queries.GetPessoaFisicaById
