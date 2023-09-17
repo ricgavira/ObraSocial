@@ -1,86 +1,81 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ObraSocial.Application.Commands.CreateUsuario;
-using ObraSocial.Application.Commands.DeleteUsuario;
-using ObraSocial.Application.Commands.LoginUser;
-using ObraSocial.Application.Commands.UpdateUsuario;
-using ObraSocial.Application.Queries.GetAllUsuarios;
-using ObraSocial.Application.Queries.GetUsuarioById;
+using ObraSocial.Application.Dtos.Cadastro;
 using ObraSocial.Application.Resources;
+using ObraSocial.Application.Service.Cadastro.Interface;
 
 namespace ObraSocial.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class UsuarioController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        private readonly IUsuarioService _usuarioService;
 
-        public UsuarioController(IMediator mediator)
+        public UsuarioController(IUsuarioService usuarioService)
         {
-            _mediator = mediator;
+            _usuarioService = usuarioService;
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> CreateAsync([FromBody] CreateUsuarioCommand command)
-        { 
-            var id = await _mediator.Send(command);
+//        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> CreateAsync([FromBody] UsuarioDto usuarioDto)
+        {
+            if (usuarioDto == null)
+                throw new ArgumentNullException($"{ValidationMessages.InvalidParameter} - {nameof(usuarioDto)}");
 
-            if (id == -1)
+            var retorno = await _usuarioService.CreateAsync(usuarioDto);
+
+            if (retorno == null)
                 return BadRequest(ValidationMessages.ExistUsuario);
 
-            return Ok(id);            
+            return Ok(retorno);
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Administrator")]
+//        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int id)
         {
-            var deleteCommand = new DeleteUsuarioCommand(id);
-            await _mediator.Send(deleteCommand);
+            await _usuarioService.DeleteAsync(id);
             return NoContent();
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
-        {
-            var query = new GetAllUsuariosQuery();
-            var usuariosDto = await _mediator.Send(query);
+        {            
+            var usuariosDto = await _usuarioService.GetAllAsync();
             return Ok(usuariosDto);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAsync(int id)
         {
-            var query = new GetUsuarioByIdQuery(id);
-            var usuarioDto = await _mediator.Send(query);
+            var usuarioDto = await _usuarioService.GetByIdAsync(id);
 
             if (usuarioDto == null)
-                return NotFound();
+                return NotFound(ValidationMessages.NotFoundUsuario);
 
             return Ok(usuarioDto);
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync([FromBody] UpdateUsuarioCommand command)
+        public async Task<IActionResult> UpdateAsync([FromBody] UsuarioDto usuarioDto)
         {
-            await _mediator.Send(command);
+            await _usuarioService.UpdateAsync(usuarioDto);
             return NoContent();
         }
 
         [HttpPut("login")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            var loginDto = await _mediator.Send(command);
+            var retorno = await _usuarioService.LoginUser(loginDto);
 
-            if (loginDto == null)
+            if (retorno == null)
                 return BadRequest(ValidationMessages.InvalidLogin);
 
-            return Ok(loginDto);
+            return Ok(retorno);
         }
     }
 }

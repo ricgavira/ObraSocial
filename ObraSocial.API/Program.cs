@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
 using ObraSocial.API.Filters;
-using ObraSocial.Application.Commands.CreatePessoaFisica;
+using ObraSocial.Application.Dtos.Cadastro.Validations;
 using ObraSocial.Infra.Data.Context;
 using ObraSocial.Infra.IoC.AutoMapper;
 using ObraSocial.Infra.IoC.Providers;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +21,7 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 
 builder.Services.AddControllers(options => options.Filters.Add(typeof(ValidationFilter)));
 
-builder.Services.AddValidatorsFromAssemblyContaining<CreatePessoaFisicaCommand>()
+builder.Services.AddValidatorsFromAssemblyContaining<PessoaFisicaDtoValidator>()
                 .AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
 
@@ -89,7 +89,8 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddMapping()
-                .AddCadastro()
+                .AddRepository()
+                .AddService()
                 .AddConfig();
 
 var app = builder.Build();

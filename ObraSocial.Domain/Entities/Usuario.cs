@@ -4,6 +4,7 @@ namespace ObraSocial.Domain.Entities
 {
     public class Usuario : BaseEntity<Usuario>
     {
+        public Usuario() { }
         public Usuario(string nome, string login, string password, Role role)
         {
             Nome = nome;

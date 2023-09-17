@@ -6,7 +6,7 @@ namespace ObraSocial.Infra.IoC.Providers
 {
     public static class CadastroProvider
     {
-        public static IServiceCollection AddCadastro(this IServiceCollection services)
+        public static IServiceCollection AddRepository(this IServiceCollection services)
         {
             services.AddScoped<IPessoaFisicaRepository, PessoaFisicaRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
