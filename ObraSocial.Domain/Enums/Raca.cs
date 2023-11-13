@@ -9,9 +9,9 @@ namespace ObraSocial.Domain.Enums
         [Description("Negro")]
         Negro = 1,
         [Description("Asiático")]
-        Asiático = 2,
+        Asiatico = 2,
         [Description("Indígena")]
-        Indígena = 3,
+        Indigena = 3,
         [Description("Pardo")]
         Pardo = 4,
         [Description("Amarelo")]

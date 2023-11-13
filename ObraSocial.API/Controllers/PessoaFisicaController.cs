@@ -46,7 +46,7 @@ namespace ObraSocial.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAsync(int id)
+        public async Task<IActionResult> GetByIdAsync(int id)
         {
             var pessoaFisicaDto = await _pessoaFisicaService.GetByIdAsync(id);
 

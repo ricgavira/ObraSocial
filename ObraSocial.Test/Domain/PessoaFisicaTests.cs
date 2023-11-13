@@ -1,34 +1,52 @@
-﻿using ObraSocial.Domain.Entities;
+﻿using NSubstitute;
+using ObraSocial.Domain.Entities;
 using ObraSocial.Domain.Enums;
 
 namespace ObraSocial.Test.Domain
 {
     public class PessoaFisicaTests
     {
-        private readonly string nome = "Ricardo";
-        private readonly string cpf = "11111111111";
-        private readonly string nomeMae = "Mae";
-        private readonly string nomePai = "Pai";
-        private readonly string rg = "0000000";
-        private readonly string naturalidade = "Cidade";
-        private readonly string nacionalidade = "Brasileira";
+        [Fact(DisplayName = "Deve criar pessoa física")]
+        public void DevePessoaFisica()
+        {
+            var pessoaFisica = new PessoaFisica(
+                Arg.Any<string>(),
+                Arg.Is<string>(x => x.Length == 11),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<DateTime>(), 
+                null, 
+                Raca.Pardo, 
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Sexo.Masculino);
 
+            pessoaFisica.Enderecos.Add(SetupEndereco());
+            pessoaFisica.Contatos.Add(SetupContato());
 
-        //[Fact(DisplayName = "Deve criar pessoa física")]
-        //public void DevePessoaFisica()
-        //{
-        //    var dataNascimento = new DateTime(1970, 5, 20);
-        //    var endereco = new Endereco("Rua da Divisão", TipoEndereco.Residencial, "79100000", new Bairro("Bairro", new Cidade("Cidade", new Estado("Estado", "MS"))), "100");
-        //    var pessoaFisica = new PessoaFisica(nome, cpf, rg, nomeMae, nomePai, dataNascimento, null, Raca.Pardo, naturalidade, nacionalidade, Sexo.Masculino);
+            Assert.NotNull(pessoaFisica);
+            Assert.Equal(pessoaFisica?.Contatos?.Count(), 1);
+        }
 
-        //    pessoaFisica.Enderecos.Add(endereco);
+        private Contato SetupContato()
+        {
+            return new Contato(
+                    Arg.Any<string>(),
+                    TipoContato.Celular,
+                    Arg.Any<int>()
+                );
+        }
+        private Endereco SetupEndereco()
+        {
 
-        //    var contato = new Contato("Telefone Celular", TipoContato.Celular, "Ricardo");
-        //    pessoaFisica.Contatos.Add(contato);
-
-        //    Assert.NotNull(pessoaFisica);
-        //    Assert.Equal(pessoaFisica.Nome, nome);
-        //    Assert.True(pessoaFisica.Contatos.Count() == 1);
-        //}
+            return new Endereco(
+                            Arg.Any<string>(), 
+                            TipoEndereco.Residencial, 
+                            Arg.Is<string>(s => s.Length == 8),
+                            Arg.Any<int>(),
+                            Arg.Is<string>(s => s.Length == 4)
+                            );
+        }
     }
 }
