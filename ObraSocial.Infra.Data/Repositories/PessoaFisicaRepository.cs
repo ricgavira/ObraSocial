@@ -32,6 +32,13 @@ namespace ObraSocial.Infra.Data.Repositories
                                       .ToListAsync();
         }
 
+        public async Task<Boolean> ExistByCPFAsync(string CPF)
+        {
+            return await _appDbContext.PessoasFisicas
+                                      .Where(x => x.Cpf == CPF)
+                                      .AnyAsync();
+        }
+
         public async Task<IEnumerable<PessoaFisica>> GetByCPFAsync(string CPF)
         {
             return await _appDbContext.PessoasFisicas

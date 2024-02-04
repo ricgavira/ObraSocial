@@ -16,9 +16,7 @@ namespace ObraSocial.Infra.Data.Mapping
             builder.Property(x => x.Nome)
                    .IsRequired();
 
-            builder.HasOne(x => x.Cidade)
-                   .WithMany(b => b.Bairros)
-                   .HasForeignKey(x => x.CidadeId);
+            builder.HasOne(x => x.Cidade);
 
             builder.ToTable(nameof(Bairro));
         }

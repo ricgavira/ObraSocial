@@ -1,4 +1,5 @@
 ﻿using NSubstitute;
+using ObraSocial.Domain;
 using ObraSocial.Domain.Entities;
 using ObraSocial.Domain.Enums;
 
@@ -15,12 +16,13 @@ namespace ObraSocial.Test.Domain
                 Arg.Any<string>(),
                 Arg.Any<string>(),
                 Arg.Any<string>(),
-                Arg.Any<DateTime>(), 
-                null, 
+                Arg.Any<DateTime>(),
+                null,
                 Raca.Pardo, 
                 Arg.Any<string>(),
                 Arg.Any<string>(),
-                Sexo.Masculino);
+                Sexo.Masculino,
+                Classificacao.Funcionario);
 
             pessoaFisica.Enderecos.Add(SetupEndereco());
             pessoaFisica.Contatos.Add(SetupContato());

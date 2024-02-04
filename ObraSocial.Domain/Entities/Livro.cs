@@ -3,7 +3,7 @@
     public class Livro : BaseEntity<Livro>
     {
         public string Nome { get; private set; }
-        public PessoaFisica Autor { get; private set; }
+        public string Autor { get; private set; }
         public string ISBN { get; private set; }
         public string Espirito { get; private set; }
         public string Psicografia { get; private set; }

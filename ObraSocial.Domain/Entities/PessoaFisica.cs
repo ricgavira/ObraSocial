@@ -15,7 +15,7 @@ namespace ObraSocial.Domain.Entities
                             string naturalidade,
                             string nacionalidade,
                             Sexo sexo,
-                            List<ClassificacaoPessoaFisica> classificacao)
+                            Classificacao classificacao)
         {
             Nome = nome;
             Cpf = cpf;
@@ -38,7 +38,7 @@ namespace ObraSocial.Domain.Entities
         public string NomeDoPai { get; private set; }
         public Raca Raca { get; private set; }
         public Sexo Sexo { get; private set; }
-        public List<ClassificacaoPessoaFisica> Classificacao { get; private set; }
+        public Classificacao Classificacao { get; private set; }
         public string Naturalidade { get; private set; }
         public string Nacionalidade { get; private set; }
         public DateTime DataNascimento { get; private set; }

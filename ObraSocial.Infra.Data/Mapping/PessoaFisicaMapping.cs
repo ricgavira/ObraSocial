@@ -29,14 +29,13 @@ namespace ObraSocial.Infra.Data.Mapping
             builder.Property(x => x.Naturalidade);
             builder.Property(x => x.Nacionalidade);
             builder.Property(x => x.Sexo);
+            builder.Property(x => x.Classificacao);
 
             builder.HasMany(x => x.Contatos)
                 .WithOne(c => c.PessoaFisica)
                 .HasForeignKey(x => x.PessoaFisicaId);
-                
-            builder.HasMany(x => x.Enderecos)
-                .WithOne(p => p.PessoaFisica)
-                .HasForeignKey(p => p.PessoaFisicaId);
+
+            builder.HasMany(x => x.Enderecos);
 
             builder.ToTable(nameof(PessoaFisica));
         }

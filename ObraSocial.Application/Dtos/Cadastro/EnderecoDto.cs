@@ -11,6 +11,5 @@ namespace ObraSocial.Application.Dtos.Cadastro
         public string Numero { get; set; }
         public string CEP { get; set; }
         public TipoEndereco TipoEndereco { get; set; }
-        public virtual PessoaFisicaDto PessoaFisicaDto { get; set; }
     }
 }

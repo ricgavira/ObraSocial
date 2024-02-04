@@ -53,7 +53,7 @@ namespace ObraSocial.Application.Dtos.Cadastro.Builders
             return _pessoaFisicaDto;
         }
 
-        public PessoaFisicaDto ComFoto(byte[] foto)
+        public PessoaFisicaDto ComFoto(string foto)
         {
             _pessoaFisicaDto.Foto = foto;
             return _pessoaFisicaDto;

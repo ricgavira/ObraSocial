@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
 using ObraSocial.Application.Dtos.Cadastro;
 using ObraSocial.Application.Resources;
 using ObraSocial.Application.Service.Cadastro.Interface;
@@ -26,9 +27,9 @@ namespace ObraSocial.Application.Service.Cadastro
 
         public async Task<PessoaFisicaDto?> CreateAsync(PessoaFisicaDto pessoaFisicaDto)
         {
-            var pessoaFisicaExiste = await _repository.GetByCPFAsync(StringHelper.OnlyNumber(pessoaFisicaDto?.CPF ?? ""));
+            Boolean pessoaFisicaExiste = await _repository.ExistByCPFAsync(StringHelper.OnlyNumber(pessoaFisicaDto?.CPF ?? ""));
 
-            if (pessoaFisicaExiste.Any())
+            if (pessoaFisicaExiste)
                 return null;
 
             var pessoaFisica = _mapper.Map<PessoaFisica>(pessoaFisicaDto);

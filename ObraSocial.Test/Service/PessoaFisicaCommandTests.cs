@@ -1,4 +1,5 @@
 ﻿using ObraSocial.Application.Dtos.Cadastro.Builders;
+using ObraSocial.Domain;
 using ObraSocial.Domain.Entities;
 using ObraSocial.Domain.Enums;
 
@@ -19,7 +20,18 @@ namespace ObraSocial.Test.Service
         public PessoaFisicaCommandTests()
         {
             var dataNascimento = new DateTime(1970, 5, 20);
-            pessoaFisica = new PessoaFisica(nome, cpf, rg, nomeMae, nomePai, dataNascimento, null, Raca.Pardo, naturalidade, nacionalidade, Sexo.Masculino);
+            pessoaFisica = new PessoaFisica(nome, 
+                                            cpf, 
+                                            rg, 
+                                            nomeMae, 
+                                            nomePai, 
+                                            dataNascimento, 
+                                            null,
+                                            Raca.Pardo, 
+                                            naturalidade, 
+                                            nacionalidade, 
+                                            Sexo.Masculino,
+                                            Classificacao.Funcionario);
             pessoaFisicaDtoBuilder = new PessoaFisicaDtoBuilder();
             //pessoaFisicaDtoBuilder
             //    .ComNome(nome)

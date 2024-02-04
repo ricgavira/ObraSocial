@@ -24,6 +24,5 @@ namespace ObraSocial.Domain.Entities
         public string Cep { get; private set; }
         public TipoEndereco TipoEndereco { get; private set; }
         public int PessoaFisicaId { get; private set; }
-        public PessoaFisica? PessoaFisica { get; set; }
     }
 }

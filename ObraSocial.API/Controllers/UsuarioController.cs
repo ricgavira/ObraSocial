@@ -19,7 +19,7 @@ namespace ObraSocial.API.Controllers
         }
 
         [HttpPost]
-//        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         public async Task<IActionResult> CreateAsync([FromBody] UsuarioDto usuarioDto)
         {
             if (usuarioDto == null)
@@ -34,7 +34,7 @@ namespace ObraSocial.API.Controllers
         }
 
         [HttpDelete]
-//        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int id)
         {
             await _usuarioService.DeleteAsync(id);
@@ -66,7 +66,7 @@ namespace ObraSocial.API.Controllers
             return NoContent();
         }
 
-        [HttpPut("login")]
+        [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {

@@ -25,9 +25,7 @@ namespace ObraSocial.Infra.Data.Mapping
             builder.Property(x => x.TipoEndereco)
                    .IsRequired();
 
-            builder.HasOne(x => x.Bairro)
-                   .WithMany(b => b.Enderecos)
-                   .HasForeignKey(x => x.BairroId);
+            builder.HasOne(x => x.Bairro);
 
             builder.ToTable(nameof(Endereco));
         }

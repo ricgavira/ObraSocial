@@ -10,6 +10,5 @@
 
         public string Nome { get; private set; }
         public string Sigla { get; private set; }
-        public virtual List<Cidade>? Cidades { get; set; }
     }
 }

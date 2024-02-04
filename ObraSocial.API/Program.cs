@@ -84,7 +84,9 @@ builder.Services.AddCors(options =>
         x.WithExposedHeaders("Set-Authorization")
          .AllowAnyHeader()
          .AllowAnyMethod()
-         .AllowCredentials();
+         .AllowCredentials()
+         //.AllowAnyOrigin()
+         .WithOrigins("http://localhost:4200");
     });
 });
 
@@ -118,5 +120,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.UseCors();
 
 app.Run();

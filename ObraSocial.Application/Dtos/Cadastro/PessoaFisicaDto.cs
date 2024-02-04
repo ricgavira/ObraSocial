@@ -1,4 +1,5 @@
-﻿using ObraSocial.Domain.Enums;
+﻿using ObraSocial.Domain;
+using ObraSocial.Domain.Enums;
 
 namespace ObraSocial.Application.Dtos.Cadastro
 {
@@ -18,10 +19,11 @@ namespace ObraSocial.Application.Dtos.Cadastro
         public string? NomeDoPai { get; set; }
         public Raca? Raca { get; set; }
         public Sexo? Sexo { get; set; }
+        public Classificacao Classificacao { get; set; }
         public string? Naturalidade { get; set; }
         public string? Nacionalidade { get; set; }
         public DateTime? DataNascimento { get; set; }
-        public byte[]? Foto { get; set; }
+        public string? Foto { get; set; }
         public List<ContatoDto>? ContatosDto { get; set; }
         public List<EnderecoDto>? EnderecosDto { get; set; }
     }

@@ -4,6 +4,7 @@
     {
         public PessoaFisica Aluno { get; private set; }
         public Turma Turma { get; private set; }
+        public DateTime Data { get; private set; }
         public SituacaoMatricula SituacaoMatricula { get; private set; }
     }
 }
