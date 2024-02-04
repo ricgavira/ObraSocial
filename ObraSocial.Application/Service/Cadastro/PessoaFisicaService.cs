@@ -60,6 +60,13 @@ namespace ObraSocial.Application.Service.Cadastro
             return _mapper.Map<List<PessoaFisicaDto>>(pessoasFisicas);
         }
 
+        public async Task<IEnumerable<PessoaFisicaSimpleDto>> GetAllSimpleAsync()
+        {
+            var pessoasFisicas = await _repository.GetAllAsync();
+
+            return _mapper.Map<List<PessoaFisicaSimpleDto>>(pessoasFisicas);
+        }
+
         public async Task<PessoaFisicaDto> GetByIdAsync(int id)
         {
             var pessoaFisica = await _repository.GetByIdAsync(id);
@@ -75,8 +82,10 @@ namespace ObraSocial.Application.Service.Cadastro
                 throw new KeyNotFoundException(ValidationMessages.NotFoundPessoaFisica);
 
             _mapper.Map(pessoaFisicaDto, pessoaFisica);
-
+            await _unitOfWork.BeginTransactionAsync();
             await _repository.UpdateAsync(pessoaFisica);
+            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.CommitTransactionAsync();
         }
     }
 }

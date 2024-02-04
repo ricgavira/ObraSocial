@@ -3,6 +3,6 @@
     public interface IReadOnlyService<T>
     {
         Task<T> GetByIdAsync(int id);
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllAsync();        
     }
 }

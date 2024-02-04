@@ -25,7 +25,7 @@ namespace ObraSocial.API.Controllers
             var retorno = await _pessoaFisicaService.CreateAsync(pessoaFisicaDto);
 
             if (retorno == null)
-                return BadRequest(ValidationMessages.ExistPessoaFisica);
+                return BadRequest(new { mensagem = ValidationMessages.ExistPessoaFisica });
 
             return Ok(retorno);
         }
@@ -43,6 +43,13 @@ namespace ObraSocial.API.Controllers
         {
             var pessoasFisicasDto = await _pessoaFisicaService.GetAllAsync();
             return Ok(pessoasFisicasDto);
+        }
+
+        [HttpGet("GetAllSimple")]
+        public async Task<IActionResult> GetAllSimpleAsync()
+        {
+            var pessoasFisicasSimpleDto = await _pessoaFisicaService.GetAllSimpleAsync();
+            return Ok(pessoasFisicasSimpleDto);
         }
 
         [HttpGet("{id}")]

@@ -20,6 +20,8 @@ namespace ObraSocial.Application.Mapping
             CreateMap<PessoaFisicaDto, PessoaFisica>()
                 .ForMember(dest => dest.Foto, opt => opt.MapFrom(src => Convert.FromBase64String(src.Foto)));
 
+            CreateMap<PessoaFisica, PessoaFisicaSimpleDto>().ReverseMap();
+
             CreateMap<Usuario, UsuarioDto>().ReverseMap();
             CreateMap<Usuario, UsuarioRetornoDto>().ReverseMap();            
             CreateMap<Contato, ContatoDto>().ReverseMap();

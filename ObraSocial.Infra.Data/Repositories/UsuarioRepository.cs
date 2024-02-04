@@ -59,5 +59,10 @@ namespace ObraSocial.Infra.Data.Repositories
 
             return result;
         }
+
+        public Task<ICollection<Usuario>> GetAllSimpleAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
