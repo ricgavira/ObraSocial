@@ -8,5 +8,7 @@ namespace ObraSocial.Infra.Data.UnitOfWork
         Task BeginTransactionAsync();
         Task CommitTransactionAsync();
         Task<int> SaveChangesAsync();
+        ICollection<T> FindAllByWhere(Func<T, bool> where);
+        T? FindByWhere(Func<T, bool> where);
     }
 }

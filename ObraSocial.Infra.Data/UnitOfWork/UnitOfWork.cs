@@ -45,6 +45,16 @@ namespace ObraSocial.Infra.Data.UnitOfWork
             return await _dbSet.ToListAsync();
         }
 
+        public ICollection<T> FindAllByWhere(Func<T, bool> where)
+        {
+            return _dbSet.Where(where).ToList();
+        }
+
+        public T? FindByWhere(Func<T, bool> where)
+        {
+            return _dbSet.SingleOrDefault(where);
+        }
+
         public async Task<int> SaveChangesAsync()
         {
             return await _appDbContext.SaveChangesAsync();

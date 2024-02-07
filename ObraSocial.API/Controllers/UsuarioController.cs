@@ -68,9 +68,9 @@ namespace ObraSocial.API.Controllers
 
         [HttpPost("login")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        public IActionResult Login([FromBody] LoginDto loginDto)
         {
-            var retorno = await _usuarioService.LoginUser(loginDto);
+            var retorno = _usuarioService.LoginUser(loginDto);
 
             if (retorno == null)
                 return BadRequest(ValidationMessages.InvalidLogin);

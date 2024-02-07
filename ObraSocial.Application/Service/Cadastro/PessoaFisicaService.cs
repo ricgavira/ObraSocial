@@ -22,7 +22,7 @@ namespace ObraSocial.Application.Service.Cadastro
 
         public async Task<PessoaFisicaDto?> AddAsync(PessoaFisicaDto pessoaFisicaDto)
         {
-            bool pessoaFisicaExiste = await _repository.ExistByCPFAsync(StringHelper.OnlyNumber(pessoaFisicaDto?.CPF ?? ""));
+            bool pessoaFisicaExiste = _repository.ExistByCPFAsync(StringHelper.OnlyNumber(pessoaFisicaDto?.CPF ?? ""));
 
             if (pessoaFisicaExiste)
                 return null;

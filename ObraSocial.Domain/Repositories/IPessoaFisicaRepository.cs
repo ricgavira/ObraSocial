@@ -4,8 +4,8 @@ namespace ObraSocial.Domain.Repositories
 {
     public interface IPessoaFisicaRepository: IReadOnlyRepository<PessoaFisica>, IWriteOnlyRepository<PessoaFisica>
     {
-        Task<IEnumerable<PessoaFisica>> GetByCPFAsync(string CPF);
-        Task<bool> ExistByCPFAsync(string CPF);
-        Task<IEnumerable<PessoaFisica>> GetByRangeIdadeAsync(int initial, int final);
+        IEnumerable<PessoaFisica> GetByCPFAsync(string CPF);
+        bool ExistByCPFAsync(string CPF);
+        IEnumerable<PessoaFisica> GetByRangeIdadeAsync(int initial, int final);
     }
 }

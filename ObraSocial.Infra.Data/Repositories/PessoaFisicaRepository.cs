@@ -1,19 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ObraSocial.Domain.Entities;
+﻿using ObraSocial.Domain.Entities;
 using ObraSocial.Domain.Repositories;
-using ObraSocial.Infra.Data.Context;
 using ObraSocial.Infra.Data.UnitOfWork;
 
 namespace ObraSocial.Infra.Data.Repositories
 {
     public class PessoaFisicaRepository : IPessoaFisicaRepository
     {
-        private readonly AppDbContext _appDbContext;
         private readonly IUnitOfWork<PessoaFisica> _unitOfWork;
 
-        public PessoaFisicaRepository(AppDbContext appDbContext, IUnitOfWork<PessoaFisica> unitOfWork)
+        public PessoaFisicaRepository(IUnitOfWork<PessoaFisica> unitOfWork)
         {
-            _appDbContext = appDbContext;
             _unitOfWork = unitOfWork;
         }
 
@@ -53,25 +49,20 @@ namespace ObraSocial.Infra.Data.Repositories
             return await _unitOfWork.GetAllAsync();
         }
 
-        public async Task<bool> ExistByCPFAsync(string CPF)
+        public bool ExistByCPFAsync(string CPF)
         {
-            return await _appDbContext.PessoasFisicas
-                                      .Where(x => x.Cpf == CPF)
-                                      .AnyAsync();
+            var pf = GetByCPFAsync(CPF);
+            return pf != null && pf.Any();
         }
 
-        public async Task<IEnumerable<PessoaFisica>> GetByCPFAsync(string CPF)
+        public IEnumerable<PessoaFisica> GetByCPFAsync(string CPF)
         {
-            return await _appDbContext.PessoasFisicas
-                                      .Where(x => x.Cpf == CPF)
-                                      .ToListAsync();
+            return _unitOfWork.FindAllByWhere(p => p.Cpf == CPF);
         }
 
-        public async Task<IEnumerable<PessoaFisica>> GetByRangeIdadeAsync(int initial, int final)
+        public IEnumerable<PessoaFisica> GetByRangeIdadeAsync(int initial, int final)
         {
-            return await _appDbContext.PessoasFisicas
-                                      .Where(x => x.Idade >= initial && x.Idade <= final)
-                                      .ToListAsync();
+            return _unitOfWork.FindAllByWhere(x => x.Idade >= initial && x.Idade <= final);
         }
     }
 }

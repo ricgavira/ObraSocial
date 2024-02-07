@@ -25,7 +25,7 @@ namespace ObraSocial.Application.Service.Cadastro
 
         public async Task<UsuarioDto?> AddAsync(UsuarioDto usuarioDto)
         {
-            bool usuarioExiste = await _repository.GetByLoginAsync(usuarioDto.Login);
+            bool usuarioExiste = _repository.GetByLoginAsync(usuarioDto.Login);
 
             if (usuarioExiste)
                 return null;
@@ -61,10 +61,10 @@ namespace ObraSocial.Application.Service.Cadastro
             return _mapper.Map<UsuarioDto>(usuario);
         }
 
-        public async Task<UsuarioLoginDto> LoginUser(LoginDto loginDto)
+        public UsuarioLoginDto LoginUser(LoginDto loginDto)
         {
             var passwordHash = _authService.ComputedSha256Hash(loginDto.Password);
-            var usuario = await _repository.GetUsuarioByLoginAndPasswordAsync(loginDto.Login, passwordHash);
+            var usuario = _repository.GetUsuarioByLoginAndPasswordAsync(loginDto.Login, passwordHash);
 
             if (usuario == null)
                 return new UsuarioLoginDto(loginDto.Login, ValidationMessages.InvalidLogin);

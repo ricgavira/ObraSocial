@@ -1,19 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ObraSocial.Domain.Entities;
+﻿using ObraSocial.Domain.Entities;
 using ObraSocial.Domain.Repositories;
-using ObraSocial.Infra.Data.Context;
 using ObraSocial.Infra.Data.UnitOfWork;
 
 namespace ObraSocial.Infra.Data.Repositories
 {
     public class UsuarioRepository : IUsuarioRepository
     {
-        private readonly AppDbContext _appDbContext;
         private readonly IUnitOfWork<Usuario> _unitOfWork;
 
-        public UsuarioRepository(AppDbContext appDbContext, IUnitOfWork<Usuario> unitOfWork)
+        public UsuarioRepository(IUnitOfWork<Usuario> unitOfWork)
         {
-            _appDbContext = appDbContext;
             _unitOfWork = unitOfWork;
         }
 
@@ -53,20 +49,17 @@ namespace ObraSocial.Infra.Data.Repositories
             return await _unitOfWork.GetByIdAsync(id);
         }
 
-        public async Task<Usuario?> GetUsuarioByLoginAndPasswordAsync(string login, string passwordHash)
+        public Usuario? GetUsuarioByLoginAndPasswordAsync(string login, string passwordHash)
         {
-            return await _appDbContext.Usuarios
-                                      .SingleOrDefaultAsync(x => x.Login == login && 
-                                                                 x.Password == passwordHash);
+            return _unitOfWork.FindByWhere(x => x.Login == login && 
+                                                      x.Password == passwordHash);
         }
 
-        public async Task<bool> GetByLoginAsync(string login)
+        public bool GetByLoginAsync(string login)
         {
-            var result = await _appDbContext.Usuarios
-                                            .Where(x => x.Login == login)
-                                            .AnyAsync();
+            var result = _unitOfWork.FindByWhere(x => x.Login == login);
 
-            return result;
+            return result != null;
         }
     }
 }
