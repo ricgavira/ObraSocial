@@ -5,29 +5,25 @@ using ObraSocial.Application.Service.Cadastro.Interface;
 using ObraSocial.Domain.Entities;
 using ObraSocial.Domain.Repositories;
 using ObraSocial.Domain.Services;
-using ObraSocial.Infra.Data.UnitOfWork;
 
 namespace ObraSocial.Application.Service.Cadastro
 {
     public class UsuarioService : IUsuarioService
     {
-        private readonly IUnitOfWork<Usuario> _unitOfWork;
         private readonly IUsuarioRepository _repository;
         private readonly IMapper _mapper;
         private readonly IAuthService _authService;
 
-        public UsuarioService(IUnitOfWork<Usuario> unitOfWork, 
-                              IUsuarioRepository repository, 
+        public UsuarioService(IUsuarioRepository repository, 
                               IMapper mapper, 
                               IAuthService authService)
         {
-            _unitOfWork = unitOfWork;
             _repository = repository;
             _mapper = mapper;
             _authService = authService;
         }
 
-        public async Task<UsuarioDto?> CreateAsync(UsuarioDto usuarioDto)
+        public async Task<UsuarioDto?> AddAsync(UsuarioDto usuarioDto)
         {
             bool usuarioExiste = await _repository.GetByLoginAsync(usuarioDto.Login);
 
@@ -38,10 +34,7 @@ namespace ObraSocial.Application.Service.Cadastro
 
             var usuario = _mapper.Map<Usuario>(usuarioDto);
 
-            await _unitOfWork.BeginTransactionAsync();
-            var retorno = await _repository.CreateAsync(usuario);
-            await _unitOfWork.SaveChangesAsync();
-            await _unitOfWork.CommitTransactionAsync();
+            var retorno = await _repository.AddAsync(usuario);
 
             return _mapper.Map<UsuarioDto>(retorno);
         }
@@ -54,7 +47,6 @@ namespace ObraSocial.Application.Service.Cadastro
                 throw new KeyNotFoundException(ValidationMessages.NotFoundUsuario);
 
             await _repository.DeleteAsync(usuario);
-            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<UsuarioDto>> GetAllAsync()
@@ -92,7 +84,6 @@ namespace ObraSocial.Application.Service.Cadastro
             _mapper.Map(usuarioDto, usuario);
 
             await _repository.UpdateAsync(usuario);
-            await _unitOfWork.SaveChangesAsync();
         }
     }
 }

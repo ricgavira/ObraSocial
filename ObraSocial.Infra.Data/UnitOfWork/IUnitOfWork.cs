@@ -1,10 +1,10 @@
-﻿namespace ObraSocial.Infra.Data.UnitOfWork
+﻿using ObraSocial.Domain.Entities;
+using ObraSocial.Domain.Repositories;
+
+namespace ObraSocial.Infra.Data.UnitOfWork
 {
-    public interface IUnitOfWork<T>
+    public interface IUnitOfWork<T> : IWriteOnlyRepository<T>, IReadOnlyRepository<T> where T : BaseEntity<T>
     {
-        Task<T> AddAsync(T entity);
-        Task DeleteAsync(T entity);
-        Task UpdateAsync(T entity);
         Task BeginTransactionAsync();
         Task CommitTransactionAsync();
         Task<int> SaveChangesAsync();

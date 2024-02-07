@@ -2,40 +2,55 @@
 using ObraSocial.Domain.Entities;
 using ObraSocial.Domain.Repositories;
 using ObraSocial.Infra.Data.Context;
+using ObraSocial.Infra.Data.UnitOfWork;
 
 namespace ObraSocial.Infra.Data.Repositories
 {
     public class UsuarioRepository : IUsuarioRepository
     {
         private readonly AppDbContext _appDbContext;
+        private readonly IUnitOfWork<Usuario> _unitOfWork;
 
-        public UsuarioRepository(AppDbContext appDbContext)
+        public UsuarioRepository(AppDbContext appDbContext, IUnitOfWork<Usuario> unitOfWork)
         {
             _appDbContext = appDbContext;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<Usuario> CreateAsync(Usuario usuario)
+        public async Task<Usuario> AddAsync(Usuario usuario)
         {
-            await _appDbContext.Usuarios.AddAsync(usuario);
-            return usuario;
+            await _unitOfWork.BeginTransactionAsync();
+            var retorno = await _unitOfWork.AddAsync(usuario);
+            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.CommitTransactionAsync();
+
+            return retorno;
         }
 
-        public Task DeleteAsync(Usuario usuario)
+        public async Task DeleteAsync(Usuario usuario)
         {
-            _appDbContext.Remove(usuario);
-            return Task.CompletedTask;
+            await _unitOfWork.BeginTransactionAsync();
+            await _unitOfWork.DeleteAsync(usuario);
+            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.CommitTransactionAsync();
+        }
+
+        public async Task UpdateAsync(Usuario usuario)
+        {
+            await _unitOfWork.BeginTransactionAsync();
+            await _unitOfWork.UpdateAsync(usuario);
+            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.CommitTransactionAsync();
         }
 
         public async Task<ICollection<Usuario>> GetAllAsync()
         {
-            return await _appDbContext.Usuarios.ToListAsync();
+            return await _unitOfWork.GetAllAsync();
         }
 
         public async Task<Usuario?> GetByIdAsync(int id)
         {
-            return await _appDbContext.Usuarios
-                                      .SingleOrDefaultAsync(x => x.Id == id);
-
+            return await _unitOfWork.GetByIdAsync(id);
         }
 
         public async Task<Usuario?> GetUsuarioByLoginAndPasswordAsync(string login, string passwordHash)
@@ -45,12 +60,6 @@ namespace ObraSocial.Infra.Data.Repositories
                                                                  x.Password == passwordHash);
         }
 
-        public Task UpdateAsync(Usuario usuario)
-        {
-            _appDbContext.Update(usuario);
-            return Task.CompletedTask;
-        }
-
         public async Task<bool> GetByLoginAsync(string login)
         {
             var result = await _appDbContext.Usuarios
@@ -58,11 +67,6 @@ namespace ObraSocial.Infra.Data.Repositories
                                             .AnyAsync();
 
             return result;
-        }
-
-        public Task<ICollection<Usuario>> GetAllSimpleAsync()
-        {
-            throw new NotImplementedException();
         }
     }
 }

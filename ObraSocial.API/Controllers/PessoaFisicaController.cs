@@ -22,7 +22,7 @@ namespace ObraSocial.API.Controllers
             if (pessoaFisicaDto == null)
                 throw new ArgumentNullException($"{ValidationMessages.InvalidParameter} - {nameof(pessoaFisicaDto)}");
 
-            var retorno = await _pessoaFisicaService.CreateAsync(pessoaFisicaDto);
+            var retorno = await _pessoaFisicaService.AddAsync(pessoaFisicaDto);
 
             if (retorno == null)
                 return BadRequest(new { mensagem = ValidationMessages.ExistPessoaFisica });

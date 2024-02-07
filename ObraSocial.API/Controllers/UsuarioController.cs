@@ -25,7 +25,7 @@ namespace ObraSocial.API.Controllers
             if (usuarioDto == null)
                 throw new ArgumentNullException($"{ValidationMessages.InvalidParameter} - {nameof(usuarioDto)}");
 
-            var retorno = await _usuarioService.CreateAsync(usuarioDto);
+            var retorno = await _usuarioService.AddAsync(usuarioDto);
 
             if (retorno == null)
                 return BadRequest(ValidationMessages.ExistUsuario);

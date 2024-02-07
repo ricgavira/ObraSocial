@@ -1,43 +1,35 @@
 ﻿using AutoMapper;
-using Microsoft.IdentityModel.Tokens;
 using ObraSocial.Application.Dtos.Cadastro;
 using ObraSocial.Application.Resources;
 using ObraSocial.Application.Service.Cadastro.Interface;
 using ObraSocial.Domain.Entities;
 using ObraSocial.Domain.Helpers;
 using ObraSocial.Domain.Repositories;
-using ObraSocial.Infra.Data.UnitOfWork;
 
 namespace ObraSocial.Application.Service.Cadastro
 {
     public class PessoaFisicaService : IPessoaFisicaService
     {
-        private readonly IUnitOfWork<PessoaFisica> _unitOfWork;
         private readonly IPessoaFisicaRepository _repository;
         private readonly IMapper _mapper;
 
         public PessoaFisicaService(IPessoaFisicaRepository repository, 
-                                   IMapper mapper, 
-                                   IUnitOfWork<PessoaFisica> unitOfWork)
+                                   IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _unitOfWork = unitOfWork;
         }
 
-        public async Task<PessoaFisicaDto?> CreateAsync(PessoaFisicaDto pessoaFisicaDto)
+        public async Task<PessoaFisicaDto?> AddAsync(PessoaFisicaDto pessoaFisicaDto)
         {
-            Boolean pessoaFisicaExiste = await _repository.ExistByCPFAsync(StringHelper.OnlyNumber(pessoaFisicaDto?.CPF ?? ""));
+            bool pessoaFisicaExiste = await _repository.ExistByCPFAsync(StringHelper.OnlyNumber(pessoaFisicaDto?.CPF ?? ""));
 
             if (pessoaFisicaExiste)
                 return null;
 
             var pessoaFisica = _mapper.Map<PessoaFisica>(pessoaFisicaDto);
 
-            await _unitOfWork.BeginTransactionAsync();
-            var retorno = await _repository.CreateAsync(pessoaFisica);
-            await _unitOfWork.SaveChangesAsync();
-            await _unitOfWork.CommitTransactionAsync();
+            var retorno = await _repository.AddAsync(pessoaFisica);
 
             return _mapper.Map<PessoaFisicaDto>(retorno);
         }
@@ -49,8 +41,7 @@ namespace ObraSocial.Application.Service.Cadastro
             if (pessoaFisica == null)
                 throw new KeyNotFoundException(ValidationMessages.NotFoundPessoaFisica);
 
-            await _repository.DeleteAsync(pessoaFisica);
-            await _unitOfWork.SaveChangesAsync();
+            await _repository.DeleteAsync(pessoaFisica);           
         }
 
         public async Task<IEnumerable<PessoaFisicaDto>> GetAllAsync()
@@ -82,10 +73,7 @@ namespace ObraSocial.Application.Service.Cadastro
                 throw new KeyNotFoundException(ValidationMessages.NotFoundPessoaFisica);
 
             _mapper.Map(pessoaFisicaDto, pessoaFisica);
-            await _unitOfWork.BeginTransactionAsync();
             await _repository.UpdateAsync(pessoaFisica);
-            await _unitOfWork.SaveChangesAsync();
-            await _unitOfWork.CommitTransactionAsync();
         }
     }
 }

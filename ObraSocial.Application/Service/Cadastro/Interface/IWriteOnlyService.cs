@@ -2,7 +2,7 @@
 {
     public interface IWriteOnlyService<T>
     {
-        Task<T?> CreateAsync(T entityDto);
+        Task<T?> AddAsync(T entityDto);
         Task UpdateAsync(T entityDto);
         Task DeleteAsync(int id);
 
