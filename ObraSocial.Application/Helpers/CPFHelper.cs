@@ -1,4 +1,4 @@
-﻿using ObraSocial.Domain.Helpers;
+﻿using ObraSocial.Application.Helpers;
 
 namespace ObraSocial.Application.Helpers
 {

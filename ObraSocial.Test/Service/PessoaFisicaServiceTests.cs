@@ -5,7 +5,7 @@ using ObraSocial.Domain.Enums;
 
 namespace ObraSocial.Test.Service
 {
-    public class PessoaFisicaCommandTests
+    public class PessoaFisicaServiceTests
     {
         private readonly string nome = "Ricardo";
         private readonly string cpf = "11111111111";
@@ -17,7 +17,7 @@ namespace ObraSocial.Test.Service
         private PessoaFisica pessoaFisica;
         private PessoaFisicaDtoBuilder pessoaFisicaDtoBuilder;
 
-        public PessoaFisicaCommandTests()
+        public PessoaFisicaServiceTests()
         {
             var dataNascimento = new DateTime(1970, 5, 20);
             pessoaFisica = new PessoaFisica(nome, 

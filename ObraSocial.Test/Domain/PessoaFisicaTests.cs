@@ -8,7 +8,7 @@ namespace ObraSocial.Test.Domain
     public class PessoaFisicaTests
     {
         [Fact(DisplayName = "Deve criar pessoa física")]
-        public void DevePessoaFisica()
+        public void DeveCadastrarPessoaFisica()
         {
             var pessoaFisica = new PessoaFisica(
                 Arg.Any<string>(),

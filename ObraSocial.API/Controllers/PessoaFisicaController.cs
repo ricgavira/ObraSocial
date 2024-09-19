@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ObraSocial.Application.Dtos.Cadastro;
 using ObraSocial.Application.Resources;
 using ObraSocial.Application.Service.Cadastro.Interface;
@@ -7,7 +8,7 @@ namespace ObraSocial.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class PessoaFisicaController : ControllerBase
     {
         private readonly IPessoaFisicaService _pessoaFisicaService;

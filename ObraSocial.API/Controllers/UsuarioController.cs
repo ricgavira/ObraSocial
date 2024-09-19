@@ -8,7 +8,6 @@ namespace ObraSocial.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _usuarioService;
@@ -19,7 +18,7 @@ namespace ObraSocial.API.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> CreateAsync([FromBody] UsuarioDto usuarioDto)
         {
             if (usuarioDto == null)
@@ -34,7 +33,7 @@ namespace ObraSocial.API.Controllers
         }
 
         [HttpDelete]
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int id)
         {
             await _usuarioService.DeleteAsync(id);
@@ -60,6 +59,7 @@ namespace ObraSocial.API.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> UpdateAsync([FromBody] UsuarioDto usuarioDto)
         {
             await _usuarioService.UpdateAsync(usuarioDto);

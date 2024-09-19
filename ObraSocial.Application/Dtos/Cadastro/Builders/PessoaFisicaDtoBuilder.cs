@@ -11,100 +11,100 @@ namespace ObraSocial.Application.Dtos.Cadastro.Builders
             Novo();
         }
 
-        public PessoaFisicaDto Novo()
+        public PessoaFisicaDtoBuilder Novo()
         {
             _pessoaFisicaDto = new PessoaFisicaDto();
-            return _pessoaFisicaDto;
+            return this;
         }
 
-        public PessoaFisicaDto ComNome(string nome)
+        public PessoaFisicaDtoBuilder ComNome(string nome)
         {
             _pessoaFisicaDto.Nome = nome;
-            return _pessoaFisicaDto;
+            return this;
         }
 
-        public PessoaFisicaDto ComCPF(string cpf)
+        public PessoaFisicaDtoBuilder ComCPF(string cpf)
         {
             _pessoaFisicaDto.CPF = cpf;
-            return _pessoaFisicaDto;
+            return this;
         }
 
-        public PessoaFisicaDto ComRG(string rg)
+        public PessoaFisicaDtoBuilder ComRG(string rg)
         {
             _pessoaFisicaDto.RG = rg;
-            return _pessoaFisicaDto;
+            return this;
         }
 
-        public PessoaFisicaDto ComNomeDaMae(string nomeDaMae)
+        public PessoaFisicaDtoBuilder ComNomeDaMae(string nomeDaMae)
         {
             _pessoaFisicaDto.NomeDaMae = nomeDaMae;
-            return _pessoaFisicaDto;
+            return this;
         }
 
-        public PessoaFisicaDto ComNomeDoPai(string nomeDoPai)
+        public PessoaFisicaDtoBuilder ComNomeDoPai(string nomeDoPai)
         {
             _pessoaFisicaDto.NomeDoPai = nomeDoPai;
-            return _pessoaFisicaDto;
+            return this;
         }
 
-        public PessoaFisicaDto ComDataNascimento(DateTime dataNascimento)
+        public PessoaFisicaDtoBuilder ComDataNascimento(DateTime dataNascimento)
         {
             _pessoaFisicaDto.DataNascimento = dataNascimento;
-            return _pessoaFisicaDto;
+            return this;
         }
 
-        public PessoaFisicaDto ComFoto(string foto)
+        public PessoaFisicaDtoBuilder ComFoto(string foto)
         {
             _pessoaFisicaDto.Foto = foto;
-            return _pessoaFisicaDto;
+            return this;
         }
 
-        public PessoaFisicaDto ComRaca(Raca raca)
+        public PessoaFisicaDtoBuilder ComRaca(Raca raca)
         {
             _pessoaFisicaDto.Raca = raca;
-            return _pessoaFisicaDto;
+            return this;
         }
 
-        public PessoaFisicaDto ComNaturalidade(string naturalidade)
+        public PessoaFisicaDtoBuilder ComNaturalidade(string naturalidade)
         {
             _pessoaFisicaDto.Naturalidade = naturalidade;
-            return _pessoaFisicaDto;
+            return this;
         }
 
-        public PessoaFisicaDto ComNacionalidade(string nacionalidade)
+        public PessoaFisicaDtoBuilder ComNacionalidade(string nacionalidade)
         {
             _pessoaFisicaDto.Nacionalidade = nacionalidade;
-            return _pessoaFisicaDto;
+            return this;
         }
 
-        public PessoaFisicaDto ComSexo(Sexo sexo)
+        public PessoaFisicaDtoBuilder ComSexo(Sexo sexo)
         {
             _pessoaFisicaDto.Sexo = sexo;
-            return _pessoaFisicaDto;
+            return this;
         }
 
-        public PessoaFisicaDto ComContatos(List<ContatoDto> contatosDto)
+        public PessoaFisicaDtoBuilder ComContatos(List<ContatoDto> contatosDto)
         {
             _pessoaFisicaDto.ContatosDto = contatosDto;
-            return _pessoaFisicaDto;
+            return this;
         }
 
-        public PessoaFisicaDto ComContato(ContatoDto contatoDto)
+        public PessoaFisicaDtoBuilder ComContato(ContatoDto contatoDto)
         {
             _pessoaFisicaDto.ContatosDto.Add(contatoDto);
-            return _pessoaFisicaDto;
+            return this;
         }
 
-        public PessoaFisicaDto ComEnderecos(List<EnderecoDto> enderecosDto)
+        public PessoaFisicaDtoBuilder ComEnderecos(List<EnderecoDto> enderecosDto)
         {
             _pessoaFisicaDto.EnderecosDto = enderecosDto;
-            return _pessoaFisicaDto;
+            return this;
         }
 
-        public PessoaFisicaDto ComEndereco(EnderecoDto enderecoDto)
+        public PessoaFisicaDtoBuilder ComEndereco(EnderecoDto enderecoDto)
         {
             _pessoaFisicaDto.EnderecosDto.Add(enderecoDto);
-            return _pessoaFisicaDto;
+            return this;
         }
 
         public PessoaFisicaDto Build()

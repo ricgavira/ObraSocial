@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace ObraSocial.Domain.Helpers
+namespace ObraSocial.Application.Helpers
 {
     public static class StringHelper
     {

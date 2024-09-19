@@ -2,8 +2,8 @@
 using ObraSocial.Application.Dtos.Cadastro;
 using ObraSocial.Application.Resources;
 using ObraSocial.Application.Service.Cadastro.Interface;
+using ObraSocial.Application.Helpers;
 using ObraSocial.Domain.Entities;
-using ObraSocial.Domain.Helpers;
 using ObraSocial.Domain.Repositories;
 
 namespace ObraSocial.Application.Service.Cadastro
